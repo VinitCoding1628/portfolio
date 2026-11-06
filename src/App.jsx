@@ -1,12 +1,21 @@
-import React from 'react'
-import { Button } from "@/components/ui/button"
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "@/components/layout/Layout";
+import Home from "@/pages/Home";
+import Work from "@/pages/Work";
+import Contact from "@/pages/Contact";
 
-const App = () => {
+export default function App() {
   return (
-    <div>
-      <Button variant="outline">Testing</Button>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="work" element={<Work />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
