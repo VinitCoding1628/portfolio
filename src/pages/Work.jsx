@@ -1,27 +1,140 @@
 import React from "react";
-import { Zap, ArrowUpRight } from "lucide-react";
-import { projects } from "@/data/data";
+import { Zap, ArrowUpRight, Layers, ArrowRight, Sparkles } from "lucide-react";
+import { projects, stacks } from "@/data/data";
+import FadeIn from "@/components/ui/FadeIn";
+
+function StackIcon({ icon, name }) {
+  switch (icon) {
+    case "react":
+      return (
+        <svg viewBox="-11.5 -10.23174 23 20.46348" className="w-6 h-6">
+          <circle cx="0" cy="0" r="2.05" fill="#61dafb" />
+          <g stroke="#61dafb" strokeWidth="1" fill="none">
+            <ellipse rx="11" ry="4.2" />
+            <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+            <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+          </g>
+        </svg>
+      );
+    case "tailwind":
+      return (
+        <svg viewBox="0 0 24 24" fill="#38bdf8" className="w-6 h-6">
+          <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.335 6.182 14.974 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.335 13.382 8.974 12 6.001 12z" />
+        </svg>
+      );
+    case "javascript":
+      return (
+        <div className="w-6 h-6 rounded bg-[#F7DF1E] text-black font-extrabold flex items-center justify-end pr-0.5 pb-0.5 text-[10px] leading-none select-none">
+          JS
+        </div>
+      );
+    case "vite":
+      return (
+        <svg viewBox="0 0 24 24" className="w-6 h-6">
+          <path fill="#BD34FE" d="M21.5 3.5l-9.2 17.8a.7.7 0 0 1-1.2 0L2.5 3.5a.7.7 0 0 1 .8-1l8.7 2.1 8.7-2.1a.7.7 0 0 1 .8 1z" />
+          <path fill="#FFD62E" d="M13.8 3.5l-4.5 9 3 0-1.8 5.5 5.5-8.5-3.2 0 1-6z" />
+        </svg>
+      );
+    case "reactrouter":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="#F44250" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <path d="M4 19L14 4h6" />
+          <path d="M4 19h16" />
+          <circle cx="18" cy="19" r="2" fill="#F44250" />
+          <circle cx="6" cy="19" r="2" fill="#F44250" />
+          <circle cx="18" cy="4" r="2" fill="#F44250" />
+        </svg>
+      );
+    case "shadcn":
+      return (
+        <svg viewBox="0 0 24 24" className="w-5 h-5 dark:text-white text-zinc-900" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 20L20 4" />
+          <path d="M14 20h6v-6" />
+        </svg>
+      );
+    default:
+      return (
+        <span className="text-sm font-bold dark:text-white text-zinc-900">
+          {name.charAt(0)}
+        </span>
+      );
+  }
+}
 
 export default function Work() {
-
   return (
-    <div className="space-y-10 pb-16">
+    <div className="space-y-12 pb-16">
       {/* Page Header */}
-      <div className="space-y-2 border-b border-white/8 pb-6">
-        <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-300 uppercase">
+      <FadeIn className="space-y-2 border-b dark:border-white/8 border-black/8 pb-6">
+        <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-blue-500 dark:text-blue-300 uppercase">
           <Zap className="w-3.5 h-3.5" />
           <span>Portfolio</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-          Selected Work
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight dark:text-white text-zinc-900">
+          Projects
         </h1>
-        <p className="text-zinc-400 text-sm sm:text-base max-w-xl">
+        <p className="dark:text-zinc-400 text-zinc-600 text-sm sm:text-base max-w-xl">
           A showcase of recent web applications, interfaces, and digital experiments.
         </p>
-      </div>
+      </FadeIn>
+
+      {/* My Stacks Section */}
+      <section className="space-y-6">
+        <FadeIn className="space-y-2 border-b border-dashed dark:border-white/10 border-black/10 pb-6">
+          <div className="flex items-center gap-2.5">
+            <Layers className="w-5 h-5 dark:text-white text-zinc-900" />
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight dark:text-white text-zinc-900">
+              My Stacks
+            </h2>
+          </div>
+          <p className="dark:text-zinc-400 text-zinc-600 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Commitment to staying updated with the latest design trends and techniques.
+          </p>
+        </FadeIn>
+
+        {/* 2-Column Stacks Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+          {stacks.map((stack, idx) => (
+            <FadeIn key={idx} delay={idx * 0.05}>
+              <a
+                href={stack.url || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-4 rounded-2xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/20 hover:border-black/20 dark:hover:bg-zinc-900/60 hover:bg-zinc-100 transition-all duration-200 flex items-center justify-between shadow-lg h-full"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-xl dark:bg-zinc-900 bg-zinc-100 border dark:border-white/10 border-black/10 flex items-center justify-center shrink-0 shadow-inner dark:group-hover:border-white/20 group-hover:border-black/20 transition-colors">
+                    <StackIcon icon={stack.icon} name={stack.name} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold dark:text-white text-zinc-900 tracking-tight group-hover:text-blue-500 dark:group-hover:text-blue-200 transition-colors">
+                      {stack.name}
+                    </h3>
+                    <p className="text-xs dark:text-zinc-400 text-zinc-500 mt-0.5">
+                      {stack.category}
+                    </p>
+                  </div>
+                </div>
+
+                <ArrowRight className="w-4 h-4 dark:text-zinc-500 text-zinc-400 dark:group-hover:text-white group-hover:text-black group-hover:translate-x-1 transition-all" />
+              </a>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
 
       {/* Projects List */}
-      <div className="grid grid-cols-1 gap-6">
+      <section className="space-y-6 pt-2">
+        <FadeIn className="space-y-2 border-b border-dashed dark:border-white/10 border-black/10 pb-6">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight dark:text-white text-zinc-900">
+            All Projects
+          </h2>
+          <p className="dark:text-zinc-400 text-zinc-600 text-sm sm:text-base max-w-xl">
+            A comprehensive list of recent web applications, interfaces, and digital experiments.
+          </p>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 gap-6">
         {projects.map((project, idx) => {
           const tags = project.technologies || project.tags || [];
           const githubUrl = project.githubUrl || project.github;
@@ -29,22 +142,23 @@ export default function Work() {
           const categoryOrYear = project.category || project.year || project.subtitle;
 
           return (
-            <div
+            <FadeIn
               key={project.id || idx}
-              className="group relative p-6 sm:p-7 rounded-3xl bg-zinc-950/60 border border-white/8 hover:border-white/20 transition-all duration-300 backdrop-blur-md shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+              delay={idx * 0.08}
+              className="group relative p-6 sm:p-7 rounded-3xl dark:bg-zinc-950/60 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/20 hover:border-black/20 transition-all duration-300 backdrop-blur-md shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
             >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                 <div>
                   {categoryOrYear && (
-                    <span className="text-xs font-mono text-zinc-500 mb-1 block">
+                    <span className="text-xs font-mono dark:text-zinc-500 text-zinc-400 mb-1 block">
                       {categoryOrYear}
                     </span>
                   )}
-                  <h2 className="text-xl font-bold text-white group-hover:text-amber-200 transition-colors">
+                  <h2 className="text-xl font-bold dark:text-white text-zinc-900 group-hover:text-blue-500 dark:group-hover:text-blue-200 transition-colors">
                     {project.title}
                   </h2>
                   {project.subtitle && project.category && (
-                    <p className="text-xs text-zinc-400 mt-0.5">
+                    <p className="text-xs dark:text-zinc-400 text-zinc-500 mt-0.5">
                       {project.subtitle}
                     </p>
                   )}
@@ -57,7 +171,7 @@ export default function Work() {
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Source Code"
-                      className="p-2 rounded-xl bg-white/5 border border-white/8 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
+                      className="p-2 rounded-xl dark:bg-white/5 bg-zinc-100 border dark:border-white/8 border-black/8 dark:text-zinc-400 text-zinc-600 dark:hover:text-white hover:text-black dark:hover:bg-white/10 hover:bg-zinc-200 transition-colors"
                     >
                       <svg
                         viewBox="0 0 24 24"
@@ -79,7 +193,7 @@ export default function Work() {
                       target="_blank"
                       rel="noopener noreferrer"
                       title="Live Demo"
-                      className="p-2 rounded-xl bg-white/5 border border-white/8 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
+                      className="p-2 rounded-xl dark:bg-white/5 bg-zinc-100 border dark:border-white/8 border-black/8 dark:text-zinc-400 text-zinc-600 dark:hover:text-white hover:text-black dark:hover:bg-white/10 hover:bg-zinc-200 transition-colors"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </a>
@@ -87,7 +201,7 @@ export default function Work() {
                 </div>
               </div>
 
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+              <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed mb-6">
                 {project.description}
               </p>
 
@@ -97,17 +211,93 @@ export default function Work() {
                   {tags.map((tag, tIdx) => (
                     <span
                       key={tIdx}
-                      className="px-3 py-1 rounded-lg bg-white/4 border border-white/6 text-xs font-mono text-zinc-300"
+                      className="px-3 py-1 rounded-lg dark:bg-white/4 bg-zinc-100/90 border dark:border-white/6 border-black/8 text-xs font-mono dark:text-zinc-300 text-zinc-700"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
-            </div>
+            </FadeIn>
           );
         })}
-      </div>
+
+        {/* More Projects Coming Soon Card with entire card blurred */}
+        <FadeIn
+          delay={projects.length * 0.08}
+          className="group relative rounded-3xl dark:bg-zinc-950/60 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/20 hover:border-black/20 transition-all duration-300 backdrop-blur-md shadow-xl hover:shadow-2xl overflow-hidden min-h-[260px] flex items-center justify-center"
+        >
+          {/* 1. Entire Card Blurred in the Backside */}
+          <div className="w-full p-6 sm:p-7 filter blur-[7px] opacity-40 dark:opacity-25 select-none pointer-events-none scale-[1.02]">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+              <div>
+                <span className="text-xs font-mono dark:text-zinc-500 text-zinc-400 mb-1 block">
+                  FULL-STACK WEB APP • 2026
+                </span>
+                <h2 className="text-xl font-bold dark:text-white text-zinc-900">
+                  NovaCore AI Platform & Automation Suite
+                </h2>
+                <p className="text-xs dark:text-zinc-400 text-zinc-500 mt-0.5">
+                  Intelligent Workflow Orchestration & Real-time Analytics
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl dark:bg-white/5 bg-zinc-100 border dark:border-white/8 border-black/8" />
+                <div className="w-8 h-8 rounded-xl dark:bg-white/5 bg-zinc-100 border dark:border-white/8 border-black/8" />
+              </div>
+            </div>
+
+            <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed mb-6">
+              An enterprise-grade SaaS web platform delivering generative agent integration, custom node-based workflow pipelines, high-throughput caching, and interactive real-time data visualization dashboards.
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {["Next.js 15", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma", "AI Integration", "Docker"].map((tag, tIdx) => (
+                <span
+                  key={tIdx}
+                  className="px-3 py-1 rounded-lg dark:bg-white/4 bg-zinc-100/90 border dark:border-white/6 border-black/8 text-xs font-mono dark:text-zinc-300 text-zinc-700"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* 2. Foreground Crisp Overlay with Title & Subtitle regarding More Projects Coming Soon */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-8 text-center bg-black/10 dark:bg-black/45 backdrop-blur-[2px] z-10">
+            <div className="max-w-lg mx-auto space-y-3.5">
+              {/* Status Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full dark:bg-white/10 bg-white/90 border dark:border-white/15 border-black/10 shadow-lg text-xs font-medium dark:text-zinc-200 text-zinc-800 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                <span className="tracking-widest font-mono text-[11px] uppercase">In Development</span>
+              </div>
+
+              {/* Title regarding More Projects Coming Soon */}
+              <h2 className="text-2xl sm:text-3xl font-extrabold dark:text-white text-zinc-900 tracking-tight">
+                More Projects Coming Soon
+              </h2>
+
+              {/* Subtitle regarding upcoming projects */}
+              <p className="text-xs sm:text-sm dark:text-zinc-300 text-zinc-600 leading-relaxed font-medium max-w-md mx-auto">
+                Currently crafting innovative web applications, interactive UI components, and modern full-stack experiments. Stay tuned for the upcoming launches!
+              </p>
+
+              {/* Teaser Badge */}
+              <div className="pt-1 flex items-center justify-center">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl dark:bg-zinc-900/80 bg-white/80 border dark:border-white/10 border-black/10 text-xs font-mono dark:text-zinc-300 text-zinc-700 shadow-sm backdrop-blur-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
+                  <span>Next releases arriving shortly</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+        </div>
+      </section>
     </div>
   );
 }
