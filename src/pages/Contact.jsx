@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Mail, MapPin, Send, CheckCircle2, Calendar } from "lucide-react";
+import { contactInfo } from "@/data/data";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -42,10 +43,10 @@ export default function Contact() {
             <span>EMAIL</span>
           </div>
           <a
-            href="mailto:pragadesh@example.com"
+            href={`mailto:${contactInfo.email}`}
             className="text-sm font-semibold text-white hover:text-amber-200 transition-colors"
           >
-            pragadesh@example.com
+            {contactInfo.email}
           </a>
         </div>
 
@@ -55,7 +56,7 @@ export default function Contact() {
             <span>LOCATION</span>
           </div>
           <span className="text-sm font-semibold text-white">
-            Tamil Nadu, India
+            {contactInfo.location}
           </span>
         </div>
 
@@ -66,7 +67,7 @@ export default function Contact() {
           </div>
           <span className="text-sm font-semibold text-emerald-400 flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Open to new projects
+            {contactInfo.availability}
           </span>
         </div>
       </div>

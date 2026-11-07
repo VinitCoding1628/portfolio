@@ -1,60 +1,152 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Calendar, Briefcase, ExternalLink } from "lucide-react";
+import {
+  Mail,
+  Calendar,
+  Briefcase,
+  Zap,
+  Code2,
+  Palette,
+  LayoutDashboard,
+  BrainCircuit,
+  Plug,
+  Gauge,
+  Globe,
+  Layout,
+  TrendingUp,
+  Rocket,
+  ArrowUpRight,
+} from "lucide-react";
 import { Marquee } from "@/components/velora/marquee";
+import {
+  personalInfo,
+  stats,
+  techStack,
+  experiences,
+  services,
+  projects,
+} from "@/data/data";
+import DecryptedText from "@/components/DecryptedText";
+import "../App.css";
+
+const serviceIconMap = {
+  Code2,
+  Palette,
+  LayoutDashboard,
+  BrainCircuit,
+  Plug,
+  Gauge,
+  Globe,
+  Layout,
+  TrendingUp,
+  Zap,
+};
+
+function ProjectPreview({ project, index }) {
+  const [imgError, setImgError] = useState(false);
+
+  if (project.image && !imgError) {
+    return (
+      <img
+        src={project.image}
+        alt={project.title}
+        onError={() => setImgError(true)}
+        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+      />
+    );
+  }
+
+  // Visual Mockup matching the screenshot previews
+  const isDark = index % 2 === 0;
+  return isDark ? (
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[#0e0a24] via-[#15103a] to-[#080614] p-4 flex items-center justify-center">
+      <div className="absolute -top-10 -left-10 w-36 h-36 bg-purple-600/30 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -bottom-10 -right-10 w-36 h-36 bg-indigo-600/20 rounded-full blur-2xl pointer-events-none" />
+
+      {/* Mini Dark UI Layout Mockup */}
+      <div className="relative w-full h-full flex gap-3 transform -rotate-3 group-hover:rotate-0 transition-transform duration-500">
+        <div className="w-2/5 h-full rounded-xl bg-zinc-900/90 border border-white/10 p-2.5 space-y-2 shadow-2xl">
+          <div className="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-xs font-bold text-purple-300">
+            {project.title.charAt(0)}
+          </div>
+          <div className="h-2 w-3/4 bg-white/20 rounded" />
+          <div className="h-1.5 w-full bg-white/10 rounded" />
+          <div className="h-1.5 w-5/6 bg-white/10 rounded" />
+          <div className="pt-2 grid grid-cols-2 gap-1.5">
+            <div className="h-6 rounded bg-purple-600/30 border border-purple-500/20" />
+            <div className="h-6 rounded bg-white/5 border border-white/10" />
+          </div>
+        </div>
+        <div className="flex-1 h-full rounded-xl bg-zinc-950/80 border border-white/10 p-3 space-y-2.5 shadow-2xl">
+          <div className="flex justify-between items-center">
+            <div className="h-2.5 w-1/2 bg-white/30 rounded" />
+            <div className="h-4 w-12 rounded-full bg-purple-500/20 border border-purple-500/30" />
+          </div>
+          <div className="h-14 rounded-lg bg-white/[0.04] border border-white/[0.08] p-2 flex items-end">
+            <div className="flex gap-1 w-full items-end h-8">
+              <div className="flex-1 bg-purple-500/40 h-4 rounded-t" />
+              <div className="flex-1 bg-purple-500/70 h-7 rounded-t" />
+              <div className="flex-1 bg-purple-500/30 h-3 rounded-t" />
+              <div className="flex-1 bg-purple-500/90 h-8 rounded-t" />
+              <div className="flex-1 bg-purple-500/50 h-5 rounded-t" />
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <div className="h-1.5 w-full bg-white/15 rounded" />
+            <div className="h-1.5 w-4/5 bg-white/10 rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[#ede9fe] via-[#f5f3ff] to-[#e0e7ff] p-4 flex items-center justify-center">
+      <div className="absolute -top-10 -right-10 w-36 h-36 bg-purple-300/50 rounded-full blur-2xl pointer-events-none" />
+
+      {/* Mini Light UI Layout Mockup */}
+      <div className="relative w-full h-full flex gap-3 transform -rotate-3 group-hover:rotate-0 transition-transform duration-500">
+        <div className="w-2/5 h-full rounded-xl bg-white/95 border border-purple-200/80 p-2.5 space-y-2 shadow-xl">
+          <div className="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">
+            {project.title.charAt(0)}
+          </div>
+          <div className="h-2 w-3/4 bg-zinc-700 rounded" />
+          <div className="h-1.5 w-full bg-zinc-300 rounded" />
+          <div className="h-1.5 w-4/5 bg-zinc-200 rounded" />
+          <div className="pt-2 h-7 rounded-lg bg-purple-50 border border-purple-200/60" />
+        </div>
+        <div className="flex-1 h-full rounded-xl bg-white/95 border border-purple-200/80 p-3 space-y-2.5 shadow-xl">
+          <div className="flex justify-between items-center">
+            <div className="h-2.5 w-2/5 bg-zinc-800 rounded" />
+            <div className="h-4 w-10 rounded-full bg-purple-100 border border-purple-300" />
+          </div>
+          <div className="h-14 rounded-lg bg-purple-50/80 border border-purple-100 p-2 flex items-center justify-around">
+            <div className="w-8 h-8 rounded-full bg-purple-600/20" />
+            <div className="w-8 h-8 rounded-full bg-purple-600/30" />
+            <div className="w-8 h-8 rounded-full bg-purple-600/40" />
+          </div>
+          <div className="space-y-1.5">
+            <div className="h-1.5 w-full bg-zinc-300 rounded" />
+            <div className="h-1.5 w-3/4 bg-zinc-200 rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
-  const stats = [
-    { value: "52+", label: "Happy Clients" },
-    { value: "6+", label: "Years of Experience" },
-    { value: "40+", label: "Completed Tasks" },
-    { value: "10+", label: "Awards Received" },
-  ];
-
-  const brandLogos = [
-    "Discord",
-    "Dribbble",
-    "Facebook",
-    "Pinterest",
-    "Snapchat",
-    "Spotify",
-    "TikTok",
-    "GitHub",
-    "Framer",
-  ];
-
-  const experiences = [
-    {
-      role: "Lead Frontend Engineer",
-      company: "Velora Labs",
-      period: "2023 - Present",
-      description: "Architecting high-performance React applications, micro-frontends, and modern interaction libraries.",
-    },
-    {
-      role: "Senior UI/UX Developer",
-      company: "Digital Forge",
-      period: "2021 - 2023",
-      description: "Designed responsive interfaces and scalable design systems for global SaaS clients.",
-    },
-    {
-      role: "Web Application Developer",
-      company: "Nexus Technologies",
-      period: "2019 - 2021",
-      description: "Built performant full-stack features, optimized Core Web Vitals, and crafted interactive motion designs.",
-    },
-  ];
+  const [isProjectsBtnHovered, setIsProjectsBtnHovered] = useState(false);
 
   return (
     <div className="space-y-12 pb-16">
       {/* 1. Hero Profile Card */}
-      <section className="relative rounded-3xl bg-zinc-950/70 border border-white/[0.08] p-6 sm:p-8 backdrop-blur-md shadow-2xl transition-all">
+      <section className="relative rounded-3xl bg-zinc-950/70 border border-white/8 p-6 sm:p-8 backdrop-blur-md shadow-2xl transition-all">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
           {/* Avatar with subtle glow & outline matching screenshot */}
           <div className="relative group shrink-0">
             <div className="w-44 h-48 sm:w-52 sm:h-56 rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 p-2 shadow-2xl">
               <img
-                src="/avatar.png"
-                alt="Pragadesh V"
+                src={personalInfo.avatar}
+                alt={personalInfo.name}
                 className="w-full h-full object-cover rounded-xl filter grayscale contrast-110 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] group-hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -62,17 +154,16 @@ export default function Home() {
 
           {/* Bio & Intro Details */}
           <div className="flex-1 text-center md:text-left space-y-4">
-            <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-amber-300/90 tracking-wide">
-              <span>👋</span> Hello I Am
+            <div className="inline-flex items-center gap-1.5 text-base sm:text-sm font-semibold text-gray-200 tracking-wide">
+              <span className="wave-hand" aria-hidden="true">👋</span> {personalInfo.greeting}
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
-              Pragadesh V
+              {personalInfo.name}
             </h1>
 
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl">
-              Experienced web developer from Tamil Nadu, India, with a passion for
-              crafting seamless digital experiences and a proven track record.
+              {personalInfo.bio}
             </p>
 
             {/* Action Buttons */}
@@ -98,9 +189,9 @@ export default function Home() {
       </section>
 
       {/* 2. Brand Marquee */}
-      <section className="relative py-2 border-y border-white/[0.06] overflow-hidden">
+      <section className="relative py-2 border-y border-white/6 overflow-hidden">
         <Marquee repeat={3} pauseOnHover className="[--duration:25s] [--gap:3rem]">
-          {brandLogos.map((brand, idx) => (
+          {techStack.map((brand, idx) => (
             <span
               key={idx}
               className="text-sm font-semibold tracking-wider text-zinc-500 hover:text-zinc-300 transition-colors uppercase select-none px-4"
@@ -112,11 +203,11 @@ export default function Home() {
       </section>
 
       {/* 3. Stats Grid */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-4">
+      <section className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 py-4">
         {stats.map((stat, idx) => (
           <div
             key={idx}
-            className="text-center p-4 sm:p-5 rounded-2xl bg-zinc-950/40 border border-white/[0.06] backdrop-blur-sm hover:border-white/10 transition-colors"
+            className="text-center p-4 sm:p-5 rounded-2xl bg-zinc-950/40 border border-white/6 backdrop-blur-sm hover:border-white/10 transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               {stat.value}
@@ -141,25 +232,240 @@ export default function Home() {
           {experiences.map((exp, idx) => (
             <div
               key={idx}
-              className="p-5 sm:p-6 rounded-2xl bg-zinc-950/50 border border-white/[0.06] hover:border-white/15 transition-all group backdrop-blur-sm"
+              className="p-5 sm:p-6 rounded-2xl bg-zinc-950/70 border border-white/8 hover:border-white/15 transition-all group backdrop-blur-md shadow-xl"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-2">
-                <h3 className="text-base font-semibold text-white group-hover:text-zinc-200">
-                  {exp.role}
-                </h3>
-                <span className="text-xs font-mono text-zinc-400">
+              {/* Top Header Row */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+                {/* Left: Logo & Company Information */}
+                <div className="flex items-center gap-3.5">
+                  {/* Company Logo Box */}
+                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 shadow-inner group-hover:border-white/20 transition-colors">
+                    {exp.logo ? (
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        className="w-10 object-contain"
+                      />
+                    ) : (
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-5 h-5 text-white"
+                      >
+                        <path d="M4 6.5h4.2l3.8 5.5 3.8-5.5H20l-4.8 7.2h-6.4L4 6.5z" />
+                        <path d="M9.5 14.8h5l-2.5 3.7-2.5-3.7z" />
+                      </svg>
+                    )}
+                  </div>
+
+                  {/* Company Name, Badge & Website */}
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2.5">
+                      <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                        {exp.company}
+                      </h3>
+                      {exp.badge && (
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-medium text-zinc-400 bg-white/6 border border-white/8">
+                          {exp.badge}
+                        </span>
+                      )}
+                    </div>
+                    {exp.website && (
+                      <a
+                        href={exp.websiteUrl || `https://${exp.website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-zinc-400 hover:text-zinc-200 transition-colors mt-0.5"
+                      >
+                        {exp.website}
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right: Period */}
+                <div className="text-base sm:text-lg font-bold text-white tracking-tight sm:text-right shrink-0">
                   {exp.period}
-                </span>
+                </div>
               </div>
-              <div className="text-xs font-medium text-zinc-400 mb-2">
-                {exp.company}
+
+              {/* Bottom Inset Card: Role & Description */}
+              <div className="mt-4 p-4 sm:p-5 rounded-xl bg-black/60 border border-white/5">
+                <h4 className="text-sm sm:text-base font-semibold text-white mb-2">
+                  {exp.role}
+                </h4>
+                <div className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  {Array.isArray(exp.description) ? (
+                    <ul className="list-disc list-inside space-y-1.5 marker:text-zinc-500">
+                      {exp.description.map((desc, dIdx) => (
+                        <li key={dIdx}>{desc}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>{exp.description}</p>
+                  )}
+                </div>
               </div>
-              <p className="text-sm text-zinc-400 leading-relaxed">
-                {exp.description}
-              </p>
             </div>
           ))}
         </div>
+      </section>
+
+      {/* 5. Services Section */}
+      <section className="space-y-6 pt-4">
+        {/* Section Header */}
+        <div className="space-y-2 border-b border-dashed border-white/10 pb-6">
+          <div className="flex items-center gap-2.5">
+            <Zap className="w-5 h-5 text-white" />
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+              My Services
+            </h2>
+          </div>
+          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Formulating comprehensive strategies to meet your design goals and exceed expectations.
+          </p>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {services.map((service, idx) => {
+            const Icon = serviceIconMap[service.icon] || Zap;
+            return (
+              <div
+                key={service.id || idx}
+                className="p-5 sm:p-6 rounded-2xl bg-zinc-950/70 border border-white/8 hover:border-white/15 transition-all duration-200 group backdrop-blur-md shadow-xl"
+              >
+                {/* Header: Icon Box + Service Title */}
+                <div className="flex items-center gap-3.5 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 shadow-inner group-hover:border-white/20 transition-colors">
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                    {service.title}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 6. Creative Design Showcase (Projects Section) */}
+      <section className="space-y-6 pt-4">
+        {/* Section Header */}
+        <div className="space-y-2 border-b border-dashed border-white/10 pb-6">
+          <div className="flex items-center gap-2.5">
+            <Rocket className="w-5 h-5 text-white" />
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+              Creative Design Showcase
+            </h2>
+          </div>
+          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Explore a collection of my most innovative and visually stunning design works.
+          </p>
+        </div>
+
+        {/* 2 Projects List */}
+        <div className="space-y-4 sm:space-y-5">
+          {projects.slice(0, 2).map((project, idx) => {
+            const domain =
+              project.domain ||
+              (project.liveUrl
+                ? project.liveUrl
+                    .replace(/^https?:\/\//, "")
+                    .replace(/\/$/, "")
+                : `${project.title.toLowerCase().replace(/\s+/g, "")}.com`);
+
+            const metaText =
+              project.meta ||
+              [
+                project.category || "Portfolio",
+                project.pages || "4 Pages",
+                project.theme || (idx % 2 === 0 ? "Dark Theme" : "Light Theme"),
+              ].join("  •  ");
+
+            return (
+              <div
+                key={project.id || idx}
+                className="group relative p-4 sm:p-5 md:p-6 rounded-2xl bg-zinc-950/70 border border-white/8 hover:border-white/15 transition-all duration-300 backdrop-blur-md shadow-xl flex flex-col md:flex-row gap-5 md:gap-6"
+              >
+                {/* Left Side: Mockup / Preview Image */}
+                <div className="w-full md:w-[46%] lg:w-[48%] h-52 sm:h-60 md:h-auto min-h-[200px] md:min-h-[220px] rounded-xl overflow-hidden bg-zinc-900 border border-white/10 relative shrink-0">
+                  <ProjectPreview project={project} index={idx} />
+                </div>
+
+                {/* Right Side: Project Details */}
+                <div className="flex-1 flex flex-col justify-between py-1">
+                  <div>
+                    {/* Top Row: Title & Domain Link Pill */}
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-amber-100 transition-colors">
+                        {project.title}
+                      </h3>
+
+                      <a
+                        href={project.liveUrl || project.link || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-xl bg-zinc-900/90 border border-white/10 text-xs text-zinc-300 font-mono hover:text-white hover:border-white/20 hover:bg-zinc-800 transition-all shrink-0"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="w-3.5 h-3.5 text-zinc-400"
+                        >
+                          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                        </svg>
+                        <span>{domain}</span>
+                      </a>
+                    </div>
+
+                    {/* Metadata Line */}
+                    <div className="text-xs sm:text-sm text-zinc-400 font-medium tracking-wide py-3 border-b border-white/[0.06]">
+                      {metaText}
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed pt-3">
+                    {project.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* View All Projects Button */}
+        <Link
+          to="/work"
+          onMouseEnter={() => setIsProjectsBtnHovered(true)}
+          onMouseLeave={() => setIsProjectsBtnHovered(false)}
+          className="w-full py-4 px-6 rounded-2xl bg-zinc-950/70 border border-white/8 hover:border-white/20 hover:bg-zinc-900/70 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer shadow-xl active:scale-[0.99]"
+        >
+          <DecryptedText
+            text="VIEW ALL PROJECTS"
+            isHovered={isProjectsBtnHovered}
+            animateOn="hover"
+            speed={35}
+            maxIterations={12}
+            sequential={false}
+            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+            className="text-xs sm:text-sm font-semibold tracking-widest text-zinc-300 group-hover:text-white transition-colors"
+            parentClassName="pointer-events-none"
+          />
+          <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+        </Link>
       </section>
     </div>
   );
