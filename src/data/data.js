@@ -1,11 +1,11 @@
 export const personalInfo = {
-  name: "Pragadesh V",
+  name: "Vinit Gite",
   greeting: "Hello I Am",
-  role: "Experienced Web Developer",
-  bio: "Experienced web developer from Tamil Nadu, India, with a passion for crafting seamless digital experiences and a proven track record.",
+  role: "Experienced Frontend Developer",
+  bio: "Experienced frontend developer from Pune, Maharashtra, India, with a passion for crafting seamless digital experiences and a proven track record.",
   avatar: "/avatar.png",
-  email: "pragadesh@example.com",
-  location: "Tamil Nadu, India",
+  email: "vinitgite1628@gmail.com",
+  location: "Pune, Maharashtra, India",
   availability: "Open to new projects",
   statusBadge: "Available For Work",
   timeZone: "Asia/Kolkata",
@@ -13,75 +13,158 @@ export const personalInfo = {
 };
 
 export const stats = [
-  { value: "52+", label: "Happy Clients" },
-  { value: "6+", label: "Years of Experience" },
-  { value: "40+", label: "Completed Tasks" },
-  { value: "10+", label: "Awards Received" },
+  { value: "14+", label: "Technologies Used" },
+  { value: "2", label: "Years of Experience" },
+  { value: "3+", label: "Projects Completed" },
 ];
 
-export const brandLogos = [
-  "Discord",
-  "Dribbble",
-  "Facebook",
-  "Pinterest",
-  "Snapchat",
-  "Spotify",
-  "TikTok",
+export const techStack = [
+  "React",
+  "Tailwind CSS",
+  "JavaScript",
+  "Vite",
+  "Shadcn UI",
+  "Node.js",
+  "Figma",
+  "Framer Motion",
+  "Sass",
+  "HTML5",
+  "CSS3",
+  "Git",
   "GitHub",
   "Framer",
 ];
 
 export const experiences = [
   {
-    role: "Lead Frontend Engineer",
-    company: "Velora Labs",
-    period: "2023 - Present",
-    description: "Architecting high-performance React applications, micro-frontends, and modern interaction libraries.",
+    role: "Associate Frontend Developer",
+    company: "ChiStats",
+    badge: "Tech Firm",
+    website: "chistats.ai",
+    websiteUrl: "https://chistats.ai/",
+    period: "Apr, 2025 - July, 2026",
+    logo: 'src/assets/images/chistats_logo.webp',
+    description: [
+      "Contributed as an Assistant Frontend Developer by integrating AI-powered financial chatbot with React and Tailwind CSS, enhancing real-time data loading and monitoring.",
+      "Designed and developed responsive UI components and best practice frameworks achieving 40% efficiency improvement.",
+      "Implemented real-time monitoring dashboards for data visualization and analysis using BoTools and Dashboard technology, facilitating quicker decision making.",
+    ],
   },
   {
-    role: "Senior UI/UX Developer",
-    company: "Digital Forge",
-    period: "2021 - 2023",
+    role: "Frontend Internship",
+    company: "ChiStats",
+    badge: "Tech Firm",
+    logo: 'src/assets/images/chistats_logo.webp',
+    website: "chistats.ai",
+    websiteUrl: "https://chistats.ai/",
+    period: "June, 2024 - March, 2025",
     description: "Designed responsive interfaces and scalable design systems for global SaaS clients.",
-  },
-  {
-    role: "Web Application Developer",
-    company: "Nexus Technologies",
-    period: "2019 - 2021",
-    description: "Built performant full-stack features, optimized Core Web Vitals, and crafted interactive motion designs.",
   },
 ];
 
 export const projects = [
   {
-    title: "Velora UI Design System",
-    description: "A dark-mode first component library featuring fluid motion, accessible primitives, and micro-interactions built with Tailwind CSS.",
-    tags: ["React", "Tailwind CSS", "Framer Motion"],
-    year: "2024",
-    link: "#",
-    github: "#",
+    id: 1,
+    title: "CodeRev",
+    subtitle: "AI-Powered Code Review Platform",
+    domain: "coderev.com",
+    meta: "Portfolio  •  4 Pages  •  Dark Theme",
+    description:
+      "An AI-powered code review platform that analyzes source code, identifies potential issues, explains code quality problems, and provides intelligent code fixes.",
+    category: "AI Application",
+    image: "/projects/coderev.png",
+    liveUrl: "https://coderev.com",
+    githubUrl: "",
+    featured: true,
+    technologies: [
+      "React 19",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS",
+      "Monaco Editor",
+      "Google Gemini API",
+      "React Router",
+      "Motion",
+      "shadcn/ui",
+    ],
+    features: [
+      "AI-powered code analysis and explanations",
+      "Automated code fixes and suggestions",
+      "Support for 40+ programming languages",
+      "Line-level issue detection and security insights",
+      "Code quality scoring",
+      "Custom editor themes",
+      "Bring Your Own API Key (BYOK) support",
+    ],
   },
   {
-    title: "Chronos Analytics Dashboard",
-    description: "Real-time telemetry and data visualization platform with customizable charts, high-frequency metrics, and sub-millisecond response rates.",
-    tags: ["TypeScript", "Next.js", "Recharts"],
-    year: "2024",
-    link: "#",
-    github: "#",
+    id: 2,
+    title: "Summarizo",
+    subtitle: "AI-Powered Text Summarizer",
+    domain: "summarizo.com",
+    meta: "Fitness  •  5 Pages  •  Light Theme",
+    description:
+      "A modern AI-powered text summarization application that transforms lengthy articles and notes into clear, concise summaries using Google's Gemini API.",
+    category: "AI Application",
+    image: "/projects/summarizo.png",
+    liveUrl: "https://summarizo.com",
+    githubUrl: "",
+    featured: true,
+    technologies: [
+      "React.js",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Google Gemini API",
+      "React Router",
+    ],
+    features: [
+      "AI-powered text summarization",
+      "Live word and sentence counter",
+      "Five free API usages with quota tracking",
+      "Custom Gemini API key integration",
+      "API key testing and local storage",
+      "One-click summary copying",
+      "Light and dark theme support",
+    ],
   },
   {
-    title: "Synthetix AI Workspace",
-    description: "Generative AI canvas interface for multimodal prompt chaining, markdown streaming, and node-based workflow orchestration.",
-    tags: ["React", "WebSockets", "Vite"],
-    year: "2023",
-    link: "#",
-    github: "#",
+    id: 3,
+    title: "Xchangeo",
+    subtitle: "Currency Converter & Exchange Tracker",
+    description:
+      "A responsive currency conversion application that provides worldwide currency exchange rates, historical rate comparisons, and interactive financial charts.",
+    category: "Web Application",
+    image: "/projects/xchangeo.png",
+    liveUrl: "",
+    githubUrl: "",
+    featured: true,
+    technologies: [
+      "React.js",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS",
+      "Material UI",
+      "Frankfurter API",
+      "Recharts",
+      "React Router",
+    ],
+    features: [
+      "Worldwide currency conversion",
+      "Latest exchange rate information",
+      "24-hour exchange rate changes",
+      "Historical exchange rate charts",
+      "Custom date range selection",
+      "Currency pair selection",
+      "One-click converted amount copying",
+    ],
   },
 ];
 
 export const contactInfo = {
-  email: "pragadesh@example.com",
-  location: "Tamil Nadu, India",
+  email: "vinitgite1628@gmail.com",
+  location: "Pune, Maharashtra, India",
   availability: "Open to new projects",
 };
 
@@ -124,15 +207,69 @@ export const navItems = [
   },
 ];
 
+export const services = [
+  {
+    id: 1,
+    title: "React.js Development",
+    description:
+      "Building modern, scalable, and responsive web applications using React.js and JavaScript.",
+    icon: "Code2",
+    technologies: ["React.js", "JavaScript", "Vite", "React Router"],
+  },
+  {
+    id: 2,
+    title: "UI Development & Figma to React",
+    description:
+      "Transforming Figma designs into pixel-perfect, responsive, and interactive user interfaces.",
+    icon: "Palette",
+    technologies: ["Figma", "Tailwind CSS", "shadcn/ui", "CSS3"],
+  },
+  {
+    id: 3,
+    title: "Dashboard Development",
+    description:
+      "Creating interactive analytics dashboards, admin panels, and data-driven interfaces.",
+    icon: "LayoutDashboard",
+    technologies: ["React.js", "ECharts", "Recharts", "REST APIs"],
+  },
+  {
+    id: 4,
+    title: "AI-Powered Web Applications",
+    description:
+      "Developing AI-powered applications with intelligent features, chat interfaces, and automated workflows.",
+    icon: "BrainCircuit",
+    technologies: ["React.js", "Gemini API", "Google GenAI SDK"],
+  },
+  {
+    id: 5,
+    title: "API Integration",
+    description:
+      "Integrating REST APIs to build dynamic applications with seamless data fetching and real-time interactions.",
+    icon: "Plug",
+    technologies: ["REST APIs", "JavaScript", "Postman", "React.js"],
+  },
+  {
+    id: 6,
+    title: "Website Optimization & Maintenance",
+    description:
+      "Improving frontend performance, fixing UI issues, and maintaining responsive, user-friendly applications.",
+    icon: "Gauge",
+    technologies: ["React.js", "JavaScript", "Git", "Vite"],
+  },
+];
+
+
 const portfolioData = {
   personalInfo,
   stats,
-  brandLogos,
+  techStack,
   experiences,
   projects,
   contactInfo,
   socialLinks,
   navItems,
+  services
 };
 
 export default portfolioData;
+
