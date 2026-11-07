@@ -1,60 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Calendar, Briefcase, ExternalLink } from "lucide-react";
+import { Mail, Calendar, Briefcase } from "lucide-react";
 import { Marquee } from "@/components/velora/marquee";
+import { personalInfo, stats, brandLogos, experiences } from "@/data/data";
 
 export default function Home() {
-  const stats = [
-    { value: "52+", label: "Happy Clients" },
-    { value: "6+", label: "Years of Experience" },
-    { value: "40+", label: "Completed Tasks" },
-    { value: "10+", label: "Awards Received" },
-  ];
-
-  const brandLogos = [
-    "Discord",
-    "Dribbble",
-    "Facebook",
-    "Pinterest",
-    "Snapchat",
-    "Spotify",
-    "TikTok",
-    "GitHub",
-    "Framer",
-  ];
-
-  const experiences = [
-    {
-      role: "Lead Frontend Engineer",
-      company: "Velora Labs",
-      period: "2023 - Present",
-      description: "Architecting high-performance React applications, micro-frontends, and modern interaction libraries.",
-    },
-    {
-      role: "Senior UI/UX Developer",
-      company: "Digital Forge",
-      period: "2021 - 2023",
-      description: "Designed responsive interfaces and scalable design systems for global SaaS clients.",
-    },
-    {
-      role: "Web Application Developer",
-      company: "Nexus Technologies",
-      period: "2019 - 2021",
-      description: "Built performant full-stack features, optimized Core Web Vitals, and crafted interactive motion designs.",
-    },
-  ];
 
   return (
     <div className="space-y-12 pb-16">
       {/* 1. Hero Profile Card */}
-      <section className="relative rounded-3xl bg-zinc-950/70 border border-white/[0.08] p-6 sm:p-8 backdrop-blur-md shadow-2xl transition-all">
+      <section className="relative rounded-3xl bg-zinc-950/70 border border-white/8 p-6 sm:p-8 backdrop-blur-md shadow-2xl transition-all">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
           {/* Avatar with subtle glow & outline matching screenshot */}
           <div className="relative group shrink-0">
             <div className="w-44 h-48 sm:w-52 sm:h-56 rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 p-2 shadow-2xl">
               <img
-                src="/avatar.png"
-                alt="Pragadesh V"
+                src={personalInfo.avatar}
+                alt={personalInfo.name}
                 className="w-full h-full object-cover rounded-xl filter grayscale contrast-110 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] group-hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -63,16 +25,15 @@ export default function Home() {
           {/* Bio & Intro Details */}
           <div className="flex-1 text-center md:text-left space-y-4">
             <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-amber-300/90 tracking-wide">
-              <span>👋</span> Hello I Am
+              <span>👋</span> {personalInfo.greeting}
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">
-              Pragadesh V
+              {personalInfo.name}
             </h1>
 
             <p className="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl">
-              Experienced web developer from Tamil Nadu, India, with a passion for
-              crafting seamless digital experiences and a proven track record.
+              {personalInfo.bio}
             </p>
 
             {/* Action Buttons */}
@@ -98,7 +59,7 @@ export default function Home() {
       </section>
 
       {/* 2. Brand Marquee */}
-      <section className="relative py-2 border-y border-white/[0.06] overflow-hidden">
+      <section className="relative py-2 border-y border-white/6 overflow-hidden">
         <Marquee repeat={3} pauseOnHover className="[--duration:25s] [--gap:3rem]">
           {brandLogos.map((brand, idx) => (
             <span
@@ -116,7 +77,7 @@ export default function Home() {
         {stats.map((stat, idx) => (
           <div
             key={idx}
-            className="text-center p-4 sm:p-5 rounded-2xl bg-zinc-950/40 border border-white/[0.06] backdrop-blur-sm hover:border-white/10 transition-colors"
+            className="text-center p-4 sm:p-5 rounded-2xl bg-zinc-950/40 border border-white/6 backdrop-blur-sm hover:border-white/10 transition-colors"
           >
             <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               {stat.value}
@@ -141,7 +102,7 @@ export default function Home() {
           {experiences.map((exp, idx) => (
             <div
               key={idx}
-              className="p-5 sm:p-6 rounded-2xl bg-zinc-950/50 border border-white/[0.06] hover:border-white/15 transition-all group backdrop-blur-sm"
+              className="p-5 sm:p-6 rounded-2xl bg-zinc-950/50 border border-white/6 hover:border-white/15 transition-all group backdrop-blur-sm"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-2">
                 <h3 className="text-base font-semibold text-white group-hover:text-zinc-200">

@@ -1,38 +1,13 @@
 import React from "react";
 import { Zap, ArrowUpRight } from "lucide-react";
+import { projects } from "@/data/data";
 
 export default function Work() {
-  const projects = [
-    {
-      title: "Velora UI Design System",
-      description: "A dark-mode first component library featuring fluid motion, accessible primitives, and micro-interactions built with Tailwind CSS.",
-      tags: ["React", "Tailwind CSS", "Framer Motion"],
-      year: "2024",
-      link: "#",
-      github: "#",
-    },
-    {
-      title: "Chronos Analytics Dashboard",
-      description: "Real-time telemetry and data visualization platform with customizable charts, high-frequency metrics, and sub-millisecond response rates.",
-      tags: ["TypeScript", "Next.js", "Recharts"],
-      year: "2024",
-      link: "#",
-      github: "#",
-    },
-    {
-      title: "Synthetix AI Workspace",
-      description: "Generative AI canvas interface for multimodal prompt chaining, markdown streaming, and node-based workflow orchestration.",
-      tags: ["React", "WebSockets", "Vite"],
-      year: "2023",
-      link: "#",
-      github: "#",
-    },
-  ];
 
   return (
     <div className="space-y-10 pb-16">
       {/* Page Header */}
-      <div className="space-y-2 border-b border-white/[0.08] pb-6">
+      <div className="space-y-2 border-b border-white/8 pb-6">
         <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-300 uppercase">
           <Zap className="w-3.5 h-3.5" />
           <span>Portfolio</span>
@@ -50,7 +25,7 @@ export default function Work() {
         {projects.map((project, idx) => (
           <div
             key={idx}
-            className="group relative p-6 sm:p-7 rounded-3xl bg-zinc-950/60 border border-white/[0.08] hover:border-white/20 transition-all duration-300 backdrop-blur-md shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+            className="group relative p-6 sm:p-7 rounded-3xl bg-zinc-950/60 border border-white/8 hover:border-white/20 transition-all duration-300 backdrop-blur-md shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
           >
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
               <div>
@@ -66,7 +41,7 @@ export default function Work() {
                 <a
                   href={project.github}
                   title="Source Code"
-                  className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.08] text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-xl bg-white/5 border border-white/8 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -84,7 +59,7 @@ export default function Work() {
                 <a
                   href={project.link}
                   title="Live Demo"
-                  className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.08] text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-xl bg-white/5 border border-white/8 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
@@ -100,7 +75,7 @@ export default function Work() {
               {project.tags.map((tag, tIdx) => (
                 <span
                   key={tIdx}
-                  className="px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.06] text-xs font-mono text-zinc-300"
+                  className="px-3 py-1 rounded-lg bg-white/4 border border-white/6 text-xs font-mono text-zinc-300"
                 >
                   {tag}
                 </span>

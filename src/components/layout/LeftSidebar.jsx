@@ -1,32 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { User, Zap, Mail, ArrowUp } from "lucide-react";
+import { navItems } from "@/data/data";
+
+const iconMap = {
+  User,
+  Zap,
+  Mail,
+};
 
 export default function LeftSidebar({ onScrollToTop }) {
-  const navItems = [
-    {
-      to: "/",
-      label: "About Me",
-      icon: User,
-    },
-    {
-      to: "/work",
-      label: "Selected Work",
-      icon: Zap,
-    },
-    {
-      to: "/contact",
-      label: "Contact",
-      icon: Mail,
-    },
-  ];
 
   return (
     <aside className="fixed left-0 top-16 bottom-0 w-24 sm:w-20 bg-[#0c0c0c]/80 backdrop-blur-md border-r border-white/8 z-30 flex flex-col items-center justify-between py-6">
       {/* Center navigation buttons */}
       <div className="my-auto flex flex-col items-center gap-3">
         {navItems.map((item) => {
-          const Icon = item.icon;
+          const Icon = iconMap[item.icon] || User;
           return (
             <NavLink
               key={item.to}

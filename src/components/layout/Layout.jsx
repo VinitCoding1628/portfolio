@@ -5,6 +5,13 @@ import TopBar from "./TopBar";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
 import { User, Zap, Mail } from "lucide-react";
+import { navItems } from "@/data/data";
+
+const iconMap = {
+  User,
+  Zap,
+  Mail,
+};
 
 export default function Layout() {
   // Ref for the scrollable middle container
@@ -64,39 +71,23 @@ export default function Layout() {
 
       {/* 5. Mobile Navigation Bar (Bottom on small screens) */}
       <nav className="sm:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#0c0c0c]/90 backdrop-blur-lg border-t border-white/10 z-40 flex items-center justify-around px-4">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `flex flex-col items-center gap-1 p-2 rounded-lg text-xs transition-colors ${
-              isActive ? "text-white font-medium" : "text-zinc-400 hover:text-white"
-            }`
-          }
-        >
-          <User className="w-5 h-5" />
-          <span>About</span>
-        </NavLink>
-        <NavLink
-          to="/work"
-          className={({ isActive }) =>
-            `flex flex-col items-center gap-1 p-2 rounded-lg text-xs transition-colors ${
-              isActive ? "text-white font-medium" : "text-zinc-400 hover:text-white"
-            }`
-          }
-        >
-          <Zap className="w-5 h-5" />
-          <span>Work</span>
-        </NavLink>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            `flex flex-col items-center gap-1 p-2 rounded-lg text-xs transition-colors ${
-              isActive ? "text-white font-medium" : "text-zinc-400 hover:text-white"
-            }`
-          }
-        >
-          <Mail className="w-5 h-5" />
-          <span>Contact</span>
-        </NavLink>
+        {navItems.map((item) => {
+          const Icon = iconMap[item.icon] || User;
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `flex flex-col items-center gap-1 p-2 rounded-lg text-xs transition-colors ${
+                  isActive ? "text-white font-medium" : "text-zinc-400 hover:text-white"
+                }`
+              }
+            >
+              <Icon className="w-5 h-5" />
+              <span>{item.shortLabel || item.label}</span>
+            </NavLink>
+          );
+        })}
       </nav>
 
       {/* 6. Middle Part: ONLY THIS CONTAINER SCROLLS AND CHANGES CONTENT */}
