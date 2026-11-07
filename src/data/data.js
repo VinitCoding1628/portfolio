@@ -1,3 +1,8 @@
+import coderevImg from "@/assets/images/coderev.png";
+import summarizoImg from "@/assets/images/summarizo.png";
+import xchangeoImg from "@/assets/images/xchangeo.png";
+import chistatsLogo from "@/assets/images/chistats_logo.webp";
+
 export const personalInfo = {
   name: "Vinit Gite",
   greeting: "Hello I Am",
@@ -43,7 +48,7 @@ export const experiences = [
     website: "chistats.ai",
     websiteUrl: "https://chistats.ai/",
     period: "Apr, 2025 - July, 2026",
-    logo: 'src/assets/images/chistats_logo.webp',
+    logo: chistatsLogo,
     description: [
       "Contributed as an Assistant Frontend Developer by integrating AI-powered financial chatbot with React and Tailwind CSS, enhancing real-time data loading and monitoring.",
       "Designed and developed responsive UI components and best practice frameworks achieving 40% efficiency improvement.",
@@ -54,7 +59,7 @@ export const experiences = [
     role: "Frontend Internship",
     company: "ChiStats",
     badge: "Tech Firm",
-    logo: 'src/assets/images/chistats_logo.webp',
+    logo: chistatsLogo,
     website: "chistats.ai",
     websiteUrl: "https://chistats.ai/",
     period: "June, 2024 - March, 2025",
@@ -67,13 +72,12 @@ export const projects = [
     id: 1,
     title: "CodeRev",
     subtitle: "AI-Powered Code Review Platform",
-    domain: "coderev.com",
-    meta: "Portfolio  •  4 Pages  •  Dark Theme",
+    meta: "AI  •  2 Pages  •  Dark Theme",
     description:
       "An AI-powered code review platform that analyzes source code, identifies potential issues, explains code quality problems, and provides intelligent code fixes.",
     category: "AI Application",
-    image: "/projects/coderev.png",
-    liveUrl: "https://coderev.com",
+    image: coderevImg,
+    liveUrl: "https://coderev-self.vercel.app/",
     githubUrl: "",
     featured: true,
     technologies: [
@@ -101,13 +105,12 @@ export const projects = [
     id: 2,
     title: "Summarizo",
     subtitle: "AI-Powered Text Summarizer",
-    domain: "summarizo.com",
-    meta: "Fitness  •  5 Pages  •  Light Theme",
+    meta: "Summarizer  •  2 Pages  •  Light Theme",
     description:
       "A modern AI-powered text summarization application that transforms lengthy articles and notes into clear, concise summaries using Google's Gemini API.",
     category: "AI Application",
-    image: "/projects/summarizo.png",
-    liveUrl: "https://summarizo.com",
+    image: summarizoImg,
+    liveUrl: "https://summarizo.vercel.app/",
     githubUrl: "",
     featured: true,
     technologies: [
@@ -133,11 +136,12 @@ export const projects = [
     id: 3,
     title: "Xchangeo",
     subtitle: "Currency Converter & Exchange Tracker",
+    meta: "Converter  •  2 Pages  •  Light Theme",
     description:
       "A responsive currency conversion application that provides worldwide currency exchange rates, historical rate comparisons, and interactive financial charts.",
     category: "Web Application",
-    image: "/projects/xchangeo.png",
-    liveUrl: "",
+    image: xchangeoImg,
+    liveUrl: "https://xchangeo-currency-converter-app.vercel.app/",
     githubUrl: "",
     featured: true,
     technologies: [
@@ -166,23 +170,25 @@ export const contactInfo = {
   email: "vinitgite1628@gmail.com",
   location: "Pune, Maharashtra, India",
   availability: "Open to new projects",
+  linkedin: "https://www.linkedin.com/in/vinitgite",
+  resumeUrl: "/Vinit_Gite_Resume.pdf",
 };
 
 export const socialLinks = [
   {
-    name: "Instagram",
-    href: "https://instagram.com",
-    platform: "instagram",
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/vinitgite",
+    platform: "linkedin",
   },
   {
-    name: "Dribbble",
-    href: "https://dribbble.com",
-    platform: "dribbble",
+    name: "Theme",
+    platform: "theme",
   },
   {
-    name: "X (Twitter)",
-    href: "https://x.com",
-    platform: "twitter",
+    name: "Download Resume",
+    href: "/Vinit_Gite_Resume.pdf",
+    platform: "resume",
+    download: true,
   },
 ];
 
@@ -194,9 +200,9 @@ export const navItems = [
     icon: "User",
   },
   {
-    to: "/work",
-    label: "Selected Work",
-    shortLabel: "Work",
+    to: "/projects",
+    label: "Projects",
+    shortLabel: "Projects",
     icon: "Zap",
   },
   {
@@ -258,6 +264,44 @@ export const services = [
   },
 ];
 
+export const stacks = [
+  {
+    name: "React",
+    category: "Frontend Library",
+    url: "https://react.dev",
+    icon: "react",
+  },
+  {
+    name: "Tailwind CSS",
+    category: "Styling Framework",
+    url: "https://tailwindcss.com",
+    icon: "tailwind",
+  },
+  {
+    name: "JavaScript",
+    category: "Programming Language",
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    icon: "javascript",
+  },
+  {
+    name: "Vite",
+    category: "Build Tool",
+    url: "https://vite.dev",
+    icon: "vite",
+  },
+  {
+    name: "React Router",
+    category: "Routing Library",
+    url: "https://reactrouter.com",
+    icon: "reactrouter",
+  },
+  {
+    name: "shadcn/ui",
+    category: "Component Library",
+    url: "https://ui.shadcn.com",
+    icon: "shadcn",
+  },
+];
 
 const portfolioData = {
   personalInfo,
@@ -268,7 +312,8 @@ const portfolioData = {
   contactInfo,
   socialLinks,
   navItems,
-  services
+  services,
+  stacks,
 };
 
 export default portfolioData;
