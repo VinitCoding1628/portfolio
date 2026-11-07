@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { personalInfo } from "@/data/data";
+import { useTheme } from "@/components/theme/ThemeContext";
 
 export default function TopBar() {
+  const { theme } = useTheme();
   const [time, setTime] = useState("");
+
+  const avatarSrc =
+    typeof personalInfo.avatar === "object"
+      ? (theme === "light" ? personalInfo.avatar.light : personalInfo.avatar.dark)
+      : (theme === "light" ? personalInfo.avatarLight : personalInfo.avatarDark) || personalInfo.avatar;
 
   useEffect(() => {
     const updateTime = () => {
@@ -31,9 +38,9 @@ export default function TopBar() {
           to="/"
           className="relative group block rounded-full p-[2px] bg-gradient-to-b from-white/20 to-white/5 hover:from-white/40 transition-all"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-zinc-900 border border-white/20">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden dark:bg-zinc-900 bg-zinc-100 border dark:border-white/20 border-black/10">
             <img
-              src={personalInfo.avatar}
+              src={avatarSrc}
               alt={personalInfo.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />

@@ -517,7 +517,7 @@ export default function DecryptedText({
   };
 
   const cellClass = revealed =>
-    [revealed && !flipping ? '' : 'relative inline-block', revealed ? className : encryptedClassName]
+    [revealed && !flipping ? '' : 'relative inline-block', revealed ? className : (encryptedClassName || className)]
       .filter(Boolean)
       .join(' ');
 

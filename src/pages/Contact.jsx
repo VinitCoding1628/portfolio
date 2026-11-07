@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mail, MapPin, Send, CheckCircle2, Calendar } from "lucide-react";
 import { contactInfo } from "@/data/data";
+import FadeIn from "@/components/ui/FadeIn";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -22,7 +23,7 @@ export default function Contact() {
   return (
     <div className="space-y-10 pb-16">
       {/* Header */}
-      <div className="space-y-2 border-b dark:border-white/[0.08] border-black/8 pb-6">
+      <FadeIn className="space-y-2 border-b dark:border-white/8 border-black/8 pb-6">
         <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-emerald-500 dark:text-emerald-400 uppercase">
           <Mail className="w-3.5 h-3.5" />
           <span>Contact</span>
@@ -33,11 +34,11 @@ export default function Contact() {
         <p className="dark:text-zinc-400 text-zinc-600 text-sm sm:text-base max-w-xl">
           Interested in working together or have questions about a project? Leave a message or connect directly.
         </p>
-      </div>
+      </FadeIn>
 
       {/* Info Pills */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-4 rounded-2xl dark:bg-zinc-950/50 bg-white/80 border dark:border-white/[0.06] border-black/8 backdrop-blur-sm shadow-md">
+        <FadeIn delay={0.05} className="p-4 rounded-2xl dark:bg-zinc-950/50 bg-white/80 border dark:border-white/6 border-black/8 backdrop-blur-sm shadow-md h-full">
           <div className="flex items-center gap-2 text-xs dark:text-zinc-500 text-zinc-400 mb-1">
             <Mail className="w-3.5 h-3.5 dark:text-zinc-400 text-zinc-500" />
             <span>EMAIL</span>
@@ -48,9 +49,9 @@ export default function Contact() {
           >
             {contactInfo.email}
           </a>
-        </div>
+        </FadeIn>
 
-        <div className="p-4 rounded-2xl dark:bg-zinc-950/50 bg-white/80 border dark:border-white/[0.06] border-black/8 backdrop-blur-sm shadow-md">
+        <FadeIn delay={0.1} className="p-4 rounded-2xl dark:bg-zinc-950/50 bg-white/80 border dark:border-white/6 border-black/8 backdrop-blur-sm shadow-md h-full">
           <div className="flex items-center gap-2 text-xs dark:text-zinc-500 text-zinc-400 mb-1">
             <MapPin className="w-3.5 h-3.5 dark:text-zinc-400 text-zinc-500" />
             <span>LOCATION</span>
@@ -58,9 +59,9 @@ export default function Contact() {
           <span className="text-sm font-semibold dark:text-white text-zinc-900">
             {contactInfo.location}
           </span>
-        </div>
+        </FadeIn>
 
-        <div className="p-4 rounded-2xl dark:bg-zinc-950/50 bg-white/80 border dark:border-white/[0.06] border-black/8 backdrop-blur-sm shadow-md">
+        <FadeIn delay={0.15} className="p-4 rounded-2xl dark:bg-zinc-950/50 bg-white/80 border dark:border-white/6 border-black/8 backdrop-blur-sm shadow-md h-full">
           <div className="flex items-center gap-2 text-xs dark:text-zinc-500 text-zinc-400 mb-1">
             <Calendar className="w-3.5 h-3.5 dark:text-zinc-400 text-zinc-500" />
             <span>AVAILABILITY</span>
@@ -69,11 +70,11 @@ export default function Contact() {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400"></span>
             {contactInfo.availability}
           </span>
-        </div>
+        </FadeIn>
       </div>
 
       {/* Contact Form */}
-      <div className="rounded-3xl dark:bg-zinc-950/60 bg-white/80 border dark:border-white/[0.08] border-black/8 p-6 sm:p-8 backdrop-blur-md shadow-2xl">
+      <FadeIn delay={0.12} className="rounded-3xl dark:bg-zinc-950/60 bg-white/80 border dark:border-white/8 border-black/8 p-6 sm:p-8 backdrop-blur-md shadow-2xl">
         <h2 className="text-lg font-semibold dark:text-white text-zinc-900 mb-6">
           Send a Direct Message
         </h2>
@@ -101,7 +102,7 @@ export default function Contact() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   placeholder="John Doe"
-                  className="w-full px-4 py-2.5 rounded-xl dark:bg-white/[0.03] bg-zinc-100/90 border dark:border-white/[0.08] border-black/10 text-sm dark:text-white text-zinc-900 dark:placeholder-zinc-600 placeholder-zinc-400 focus:outline-none dark:focus:border-white/30 focus:border-zinc-400 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl dark:bg-white/3 bg-zinc-100/90 border dark:border-white/8 border-black/10 text-sm dark:text-white text-zinc-900 dark:placeholder-zinc-600 placeholder-zinc-400 focus:outline-none dark:focus:border-white/30 focus:border-zinc-400 transition-colors"
                 />
               </div>
 
@@ -115,7 +116,7 @@ export default function Contact() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   placeholder="john@example.com"
-                  className="w-full px-4 py-2.5 rounded-xl dark:bg-white/[0.03] bg-zinc-100/90 border dark:border-white/[0.08] border-black/10 text-sm dark:text-white text-zinc-900 dark:placeholder-zinc-600 placeholder-zinc-400 focus:outline-none dark:focus:border-white/30 focus:border-zinc-400 transition-colors"
+                  className="w-full px-4 py-2.5 rounded-xl dark:bg-white/3 bg-zinc-100/90 border dark:border-white/8 border-black/10 text-sm dark:text-white text-zinc-900 dark:placeholder-zinc-600 placeholder-zinc-400 focus:outline-none dark:focus:border-white/30 focus:border-zinc-400 transition-colors"
                 />
               </div>
             </div>
@@ -130,7 +131,7 @@ export default function Contact() {
                   setFormData({ ...formData, message: e.target.value })
                 }
                 placeholder="Tell me about your project or inquiry..."
-                className="w-full px-4 py-2.5 rounded-xl dark:bg-white/[0.03] bg-zinc-100/90 border dark:border-white/[0.08] border-black/10 text-sm dark:text-white text-zinc-900 dark:placeholder-zinc-600 placeholder-zinc-400 focus:outline-none dark:focus:border-white/30 focus:border-zinc-400 transition-colors resize-none"
+                className="w-full px-4 py-2.5 rounded-xl dark:bg-white/3 bg-zinc-100/90 border dark:border-white/8 border-black/10 text-sm dark:text-white text-zinc-900 dark:placeholder-zinc-600 placeholder-zinc-400 focus:outline-none dark:focus:border-white/30 focus:border-zinc-400 transition-colors resize-none"
               />
             </div>
 
@@ -143,7 +144,7 @@ export default function Contact() {
             </button>
           </form>
         )}
-      </div>
+      </FadeIn>
     </div>
   );
 }

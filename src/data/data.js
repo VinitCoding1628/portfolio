@@ -8,7 +8,12 @@ export const personalInfo = {
   greeting: "Hello I Am",
   role: "Experienced Frontend Developer",
   bio: "Experienced frontend developer from Pune, Maharashtra, India, with a passion for crafting seamless digital experiences and a proven track record.",
-  avatar: "/avatar.png",
+  avatar: {
+    light: "/light_profile.png",
+    dark: "/dark_profile.png",
+  },
+  avatarLight: "/light_profile.png",
+  avatarDark: "/dark_profile.png",
   email: "vinitgite1628@gmail.com",
   location: "Pune, Maharashtra, India",
   availability: "Open to new projects",

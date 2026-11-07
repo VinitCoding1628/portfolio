@@ -33,7 +33,7 @@ export default function LeftSidebar({ onScrollToTop }) {
               <Icon className="w-5 h-5 transition-transform duration-200 group-hover:scale-110" />
 
               {/* Tooltip on hover */}
-              <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded-md dark:bg-zinc-900 bg-white dark:border-white/10 border-zinc-200 text-xs dark:text-white text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl z-50">
+              <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded-md dark:bg-zinc-900 bg-white border dark:border-white/10 border-zinc-200 text-xs dark:text-white text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl z-50">
                 {item.label}
               </span>
             </NavLink>
@@ -50,7 +50,7 @@ export default function LeftSidebar({ onScrollToTop }) {
         className="group relative w-10 h-10 rounded-xl flex items-center justify-center dark:text-zinc-500 text-zinc-400 dark:hover:text-white hover:text-zinc-900 dark:hover:bg-white/10 hover:bg-black/5 transition-all duration-200 border border-transparent dark:hover:border-white/10 hover:border-black/10"
       >
         <ArrowUp className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
-        <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded-md dark:bg-zinc-900 bg-white dark:border-white/10 border-zinc-200 text-xs dark:text-white text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl z-50">
+        <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1 rounded-md dark:bg-zinc-900 bg-white border dark:border-white/10 border-zinc-200 text-xs dark:text-white text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl z-50">
           Scroll to Top
         </span>
       </button>

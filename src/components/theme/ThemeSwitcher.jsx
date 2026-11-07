@@ -13,7 +13,7 @@ export default function ThemeSwitcher() {
       onClick={toggleTheme}
       title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
       aria-label="Toggle theme"
-      className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/5 border border-white/8 hover:border-white/20 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all duration-200 cursor-pointer active:scale-95"
+      className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl dark:bg-white/5 bg-black/5 dark:border-white/8 border-black/8 border dark:hover:border-white/20 hover:border-black/20 dark:hover:bg-white/10 hover:bg-black/10 flex items-center justify-center dark:text-zinc-400 text-zinc-600 dark:hover:text-white hover:text-black transition-all duration-200 cursor-pointer active:scale-95"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
@@ -33,7 +33,7 @@ export default function ThemeSwitcher() {
       </AnimatePresence>
 
       {/* Tooltip on desktop */}
-      <span className="hidden sm:block pointer-events-none absolute right-full mr-3 px-2.5 py-1 rounded-md bg-zinc-900 border border-white/10 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl z-50">
+      <span className="hidden sm:block pointer-events-none absolute right-full mr-3 px-2.5 py-1 rounded-md dark:bg-zinc-900 bg-white border dark:border-white/10 border-zinc-200 text-xs dark:text-white text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl z-50">
         {isDark ? "Light Mode" : "Dark Mode"}
       </span>
     </button>

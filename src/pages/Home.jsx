@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail,
@@ -27,6 +27,9 @@ import {
   projects,
 } from "@/data/data";
 import DecryptedText from "@/components/DecryptedText";
+import { useTheme } from "@/components/theme/ThemeContext";
+import { motion, AnimatePresence } from "motion/react";
+import FadeIn from "@/components/ui/FadeIn";
 import "../App.css";
 
 const serviceIconMap = {
@@ -135,19 +138,116 @@ function ProjectPreview({ project, index }) {
   );
 }
 
+const GRID_COLS = 8;
+const GRID_ROWS = 9;
+
+function PixelatedAvatar({ src, alt, className }) {
+  const [isAnimating, setIsAnimating] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAnimating(false);
+    }, 1800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const pixels = useMemo(() => {
+    const items = [];
+    for (let r = 0; r < GRID_ROWS; r++) {
+      for (let c = 0; c < GRID_COLS; c++) {
+        // Smooth diagonal wave with gentle random jitter
+        const delay = r * 0.065 + c * 0.05 + Math.random() * 0.12;
+        const rotateX = (Math.random() - 0.5) * 110;
+        const rotateY = (Math.random() - 0.5) * 110;
+        items.push({ id: `${r}-${c}`, r, c, delay, rotateX, rotateY });
+      }
+    }
+    return items;
+  }, []);
+
+  return (
+    <div className="relative w-full h-full rounded-xl overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={src}
+          src={src}
+          alt={alt}
+          initial={{ opacity: 0.85, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className={className}
+        />
+      </AnimatePresence>
+
+      {/* Small pixelated cubes animation (only on page load) */}
+      {isAnimating && (
+        <div
+          className="absolute inset-0 pointer-events-none z-20 p-0.5 gap-0.5"
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
+            gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
+            perspective: 600,
+          }}
+        >
+          {pixels.map((item) => (
+            <motion.div
+              key={item.id}
+              initial={{
+                opacity: 1,
+                scale: 1,
+                rotateX: 0,
+                rotateY: 0,
+              }}
+              animate={{
+                opacity: 0,
+                scale: 0.05,
+                rotateX: item.rotateX,
+                rotateY: item.rotateY,
+              }}
+              transition={{
+                duration: 0.75,
+                delay: item.delay,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              style={{
+                transformPerspective: 500,
+                transformStyle: "preserve-3d",
+              }}
+              className={`w-full h-full rounded-xs border ${(item.r + item.c) % 2 === 0
+                  ? "dark:bg-zinc-800 bg-zinc-200 dark:border-white/10 border-black/10"
+                  : "dark:bg-zinc-900 bg-zinc-300 dark:border-white/5 border-black/5"
+                } shadow-xs`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
   const [isProjectsBtnHovered, setIsProjectsBtnHovered] = useState(false);
+  const [isEmailBtnHovered, setIsEmailBtnHovered] = useState(false);
+  const [isCallBtnHovered, setIsCallBtnHovered] = useState(false);
+  const { theme } = useTheme();
+
+  const avatarSrc =
+    typeof personalInfo.avatar === "object"
+      ? (theme === "light" ? personalInfo.avatar.light : personalInfo.avatar.dark)
+      : (theme === "light" ? personalInfo.avatarLight : personalInfo.avatarDark) || personalInfo.avatar;
 
   return (
     <div className="space-y-12 pb-16">
       {/* 1. Hero Profile Card */}
-      <section className="relative rounded-3xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/10 p-6 sm:p-8 backdrop-blur-md shadow-2xl transition-all">
+      <FadeIn as="section" className="relative rounded-3xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/10 p-6 sm:p-8 backdrop-blur-md shadow-2xl transition-all">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-8">
           {/* Avatar with subtle glow & outline matching screenshot */}
           <div className="relative group shrink-0">
             <div className="w-44 h-48 sm:w-52 sm:h-56 rounded-2xl overflow-hidden dark:bg-zinc-900 bg-zinc-100 border dark:border-white/10 border-black/10 p-2 shadow-2xl">
-              <img
-                src={personalInfo.avatar}
+              <PixelatedAvatar
+                src={avatarSrc}
                 alt={personalInfo.name}
                 className="w-full h-full object-cover rounded-xl filter grayscale contrast-110 dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] drop-shadow-[0_0_12px_rgba(0,0,0,0.15)] group-hover:scale-105 transition-transform duration-500"
               />
@@ -172,26 +272,52 @@ export default function Home() {
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl dark:bg-zinc-900/90 bg-zinc-100 dark:hover:bg-zinc-800 hover:bg-zinc-200 dark:text-white text-zinc-900 text-xs font-semibold uppercase tracking-wider border dark:border-white/10 border-zinc-300 dark:hover:border-white/20 hover:border-zinc-400 transition-all duration-200 shadow-md hover:shadow-black/5 active:scale-95"
+                onMouseEnter={() => setIsEmailBtnHovered(true)}
+                onMouseLeave={() => setIsEmailBtnHovered(false)}
+                className="group inline-flex items-center justify-center min-w-[145px] gap-2 px-5 py-2.5 rounded-xl dark:bg-zinc-900/90 bg-zinc-100 dark:hover:bg-zinc-800 hover:bg-zinc-200 dark:text-white text-zinc-900 text-xs font-semibold uppercase tracking-wider border dark:border-white/10 border-zinc-300 dark:hover:border-white/20 hover:border-zinc-400 transition-all duration-200 shadow-md hover:shadow-black/5 active:scale-95 cursor-pointer"
               >
-                <Mail className="w-4 h-4 dark:text-zinc-400 text-zinc-500" />
-                <span>EMAIL ME</span>
+                <Mail className="w-4 h-4 shrink-0 dark:text-zinc-400 text-zinc-500 group-hover:scale-110 transition-transform" />
+                <DecryptedText
+                  text="EMAIL ME"
+                  isHovered={isEmailBtnHovered}
+                  animateOn="hover"
+                  speed={35}
+                  maxIterations={12}
+                  sequential={false}
+                  characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+                  className="text-xs font-semibold tracking-wider dark:text-zinc-300 text-zinc-700 dark:group-hover:text-white group-hover:text-black transition-colors"
+                  encryptedClassName="text-xs font-semibold tracking-wider text-blue-500 dark:text-blue-400"
+                  parentClassName="pointer-events-none"
+                />
               </Link>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl dark:bg-zinc-900/90 bg-zinc-100 dark:hover:bg-zinc-800 hover:bg-zinc-200 dark:text-white text-zinc-900 text-xs font-semibold uppercase tracking-wider border dark:border-white/10 border-zinc-300 dark:hover:border-white/20 hover:border-zinc-400 transition-all duration-200 shadow-md hover:shadow-black/5 active:scale-95"
+                onMouseEnter={() => setIsCallBtnHovered(true)}
+                onMouseLeave={() => setIsCallBtnHovered(false)}
+                className="group inline-flex items-center justify-center min-w-[185px] gap-2 px-5 py-2.5 rounded-xl dark:bg-zinc-900/90 bg-zinc-100 dark:hover:bg-zinc-800 hover:bg-zinc-200 dark:text-white text-zinc-900 text-xs font-semibold uppercase tracking-wider border dark:border-white/10 border-zinc-300 dark:hover:border-white/20 hover:border-zinc-400 transition-all duration-200 shadow-md hover:shadow-black/5 active:scale-95 cursor-pointer"
               >
-                <Calendar className="w-4 h-4 dark:text-zinc-400 text-zinc-500" />
-                <span>SCHEDULE CALL</span>
+                <Calendar className="w-4 h-4 shrink-0 dark:text-zinc-400 text-zinc-500 group-hover:scale-110 transition-transform" />
+                <DecryptedText
+                  text="SCHEDULE CALL"
+                  isHovered={isCallBtnHovered}
+                  animateOn="hover"
+                  speed={35}
+                  maxIterations={12}
+                  sequential={false}
+                  characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+                  className="text-xs font-semibold tracking-wider dark:text-zinc-300 text-zinc-700 dark:group-hover:text-white group-hover:text-black transition-colors"
+                  encryptedClassName="text-xs font-semibold tracking-wider text-blue-500 dark:text-blue-400"
+                  parentClassName="pointer-events-none"
+                />
               </Link>
             </div>
           </div>
         </div>
-      </section>
+      </FadeIn>
 
       {/* 2. Brand Marquee */}
-      <section className="relative py-2 border-y dark:border-white/6 border-black/8 overflow-hidden">
+      <FadeIn as="section" delay={0.08} className="relative py-2 border-y dark:border-white/6 border-black/8 overflow-hidden">
         <Marquee repeat={3} pauseOnHover className="[--duration:25s] [--gap:3rem]">
           {techStack.map((brand, idx) => (
             <span
@@ -202,13 +328,14 @@ export default function Home() {
             </span>
           ))}
         </Marquee>
-      </section>
+      </FadeIn>
 
       {/* 3. Stats Grid */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 py-4">
         {stats.map((stat, idx) => (
-          <div
+          <FadeIn
             key={idx}
+            delay={idx * 0.08}
             className="text-center p-4 sm:p-5 rounded-2xl dark:bg-zinc-950/40 bg-white/70 border dark:border-white/6 border-black/8 backdrop-blur-sm dark:hover:border-white/10 hover:border-black/15 transition-colors shadow-sm"
           >
             <div className="text-2xl sm:text-3xl font-extrabold dark:text-white text-zinc-900 tracking-tight">
@@ -217,14 +344,14 @@ export default function Home() {
             <div className="text-xs sm:text-sm dark:text-zinc-400 text-zinc-500 mt-1 font-medium">
               {stat.label}
             </div>
-          </div>
+          </FadeIn>
         ))}
       </section>
 
       {/* 5. Services Section */}
       <section className="space-y-6 pt-4">
         {/* Section Header */}
-        <div className="space-y-2 border-b border-dashed dark:border-white/10 border-black/10 pb-6">
+        <FadeIn className="space-y-2 border-b border-dashed dark:border-white/10 border-black/10 pb-6">
           <div className="flex items-center gap-2.5">
             <Zap className="w-5 h-5 dark:text-white text-zinc-900" />
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight dark:text-white text-zinc-900">
@@ -234,15 +361,16 @@ export default function Home() {
           <p className="dark:text-zinc-400 text-zinc-600 text-sm sm:text-base max-w-2xl leading-relaxed">
             Formulating comprehensive strategies to meet your design goals and exceed expectations.
           </p>
-        </div>
+        </FadeIn>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           {services.map((service, idx) => {
             const Icon = serviceIconMap[service.icon] || Zap;
             return (
-              <div
+              <FadeIn
                 key={service.id || idx}
+                delay={idx * 0.08}
                 className="p-5 sm:p-6 rounded-2xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/15 hover:border-black/15 transition-all duration-200 group backdrop-blur-md shadow-xl"
               >
                 {/* Header: Icon Box + Service Title */}
@@ -259,7 +387,7 @@ export default function Home() {
                 <p className="text-xs sm:text-sm dark:text-zinc-400 text-zinc-600 leading-relaxed">
                   {service.description}
                 </p>
-              </div>
+              </FadeIn>
             );
           })}
         </div>
@@ -268,7 +396,7 @@ export default function Home() {
       {/* 6. Creative Design Showcase (Projects Section) */}
       <section className="space-y-6 pt-4">
         {/* Section Header */}
-        <div className="space-y-2 border-b border-dashed dark:border-white/10 border-black/10 pb-6">
+        <FadeIn className="space-y-2 border-b border-dashed dark:border-white/10 border-black/10 pb-6">
           <div className="flex items-center gap-2.5">
             <Rocket className="w-5 h-5 dark:text-white text-zinc-900" />
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight dark:text-white text-zinc-900">
@@ -278,7 +406,7 @@ export default function Home() {
           <p className="dark:text-zinc-400 text-zinc-600 text-sm sm:text-base max-w-2xl leading-relaxed">
             Explore a collection of my most innovative and visually stunning live projects.
           </p>
-        </div>
+        </FadeIn>
 
         {/* 2 Projects List */}
         <div className="space-y-4 sm:space-y-5">
@@ -287,8 +415,8 @@ export default function Home() {
               project.domain ||
               (project.liveUrl
                 ? project.liveUrl
-                    .replace(/^https?:\/\//, "")
-                    .replace(/\/$/, "")
+                  .replace(/^https?:\/\//, "")
+                  .replace(/\/$/, "")
                 : `${project.title.toLowerCase().replace(/\s+/g, "")}.com`);
 
             const metaText =
@@ -300,8 +428,9 @@ export default function Home() {
               ].join("  •  ");
 
             return (
-              <div
+              <FadeIn
                 key={project.id || idx}
+                delay={idx * 0.1}
                 className="group relative p-4 sm:p-5 md:p-6 rounded-2xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/15 hover:border-black/15 transition-all duration-300 backdrop-blur-md shadow-xl flex flex-col md:flex-row gap-5 md:gap-6"
               >
                 {/* Left Side: Mockup / Preview Image */}
@@ -351,46 +480,49 @@ export default function Home() {
                     {project.description}
                   </p>
                 </div>
-              </div>
+              </FadeIn>
             );
           })}
         </div>
 
         {/* View All Projects Button */}
-        <Link
-          to="/projects"
-          onMouseEnter={() => setIsProjectsBtnHovered(true)}
-          onMouseLeave={() => setIsProjectsBtnHovered(false)}
-          className="w-full py-4 px-6 rounded-2xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/20 hover:border-black/20 dark:hover:bg-zinc-900/70 hover:bg-zinc-100 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer shadow-xl active:scale-[0.99]"
-        >
-          <DecryptedText
-            text="VIEW ALL PROJECTS"
-            isHovered={isProjectsBtnHovered}
-            animateOn="hover"
-            speed={35}
-            maxIterations={12}
-            sequential={false}
-            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
-            className="text-xs sm:text-sm font-semibold tracking-widest dark:text-zinc-300 text-zinc-700 dark:group-hover:text-white group-hover:text-black transition-colors"
-            parentClassName="pointer-events-none"
-          />
-          <ArrowUpRight className="w-4 h-4 dark:text-zinc-400 text-zinc-500 dark:group-hover:text-white group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-        </Link>
+        <FadeIn delay={0.12}>
+          <Link
+            to="/projects"
+            onMouseEnter={() => setIsProjectsBtnHovered(true)}
+            onMouseLeave={() => setIsProjectsBtnHovered(false)}
+            className="w-full py-4 px-6 rounded-2xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/20 hover:border-black/20 dark:hover:bg-zinc-900/70 hover:bg-zinc-100 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer shadow-xl active:scale-[0.99]"
+          >
+            <DecryptedText
+              text="VIEW ALL PROJECTS"
+              isHovered={isProjectsBtnHovered}
+              animateOn="hover"
+              speed={35}
+              maxIterations={12}
+              sequential={false}
+              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
+              className="text-xs sm:text-sm font-semibold tracking-widest dark:text-zinc-300 text-zinc-700 dark:group-hover:text-white group-hover:text-black transition-colors"
+              parentClassName="pointer-events-none"
+            />
+            <ArrowUpRight className="w-4 h-4 dark:text-zinc-400 text-zinc-500 dark:group-hover:text-white group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+          </Link>
+        </FadeIn>
       </section>
 
       {/* 4. Experience Section */}
       <section className="space-y-6 pt-4">
-        <div className="flex items-center gap-2.5">
+        <FadeIn className="flex items-center gap-2.5">
           <Briefcase className="w-5 h-5 dark:text-zinc-300 text-zinc-700" />
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight dark:text-white text-zinc-900">
             My Experience
           </h2>
-        </div>
+        </FadeIn>
 
         <div className="space-y-4">
           {experiences.map((exp, idx) => (
-            <div
+            <FadeIn
               key={idx}
+              delay={idx * 0.08}
               className="p-5 sm:p-6 rounded-2xl dark:bg-zinc-950/70 bg-white/80 border dark:border-white/8 border-black/8 dark:hover:border-white/15 hover:border-black/15 transition-all group backdrop-blur-md shadow-xl"
             >
               {/* Top Header Row */}
@@ -465,7 +597,7 @@ export default function Home() {
                   )}
                 </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </section>
