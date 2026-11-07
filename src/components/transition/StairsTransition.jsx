@@ -6,7 +6,8 @@ import { usePreload } from "@/context/PreloadContext";
 import { useTheme } from "@/components/theme/ThemeContext";
 
 const NUM_COLUMNS = 8;
-const TRANSITION_EASE = [0.76, 0, 0.24, 1];
+// Smooth, lazy, luxurious easing
+const TRANSITION_EASE = [0.65, 0, 0.35, 1];
 
 function StairsOverlay({ onFinish }) {
   const { theme } = useTheme();
@@ -18,7 +19,7 @@ function StairsOverlay({ onFinish }) {
     if (shouldReduceMotion) {
       const timer = setTimeout(() => {
         onFinish();
-      }, 300);
+      }, 400);
       return () => clearTimeout(timer);
     }
   }, [shouldReduceMotion, onFinish]);
@@ -42,9 +43,9 @@ function StairsOverlay({ onFinish }) {
                 y: ["-100%", "0%", "0%", "100%"],
               }}
               transition={{
-                duration: 0.82,
-                times: [0, 0.42, 0.54, 1],
-                delay: index * 0.035,
+                duration: 1.15,
+                times: [0, 0.40, 0.58, 1],
+                delay: index * 0.055,
                 ease: TRANSITION_EASE,
               }}
               className={`relative w-full h-full ${
@@ -68,9 +69,9 @@ function StairsOverlay({ onFinish }) {
                 y: ["-100%", "0%", "0%", "100%"],
               }}
               transition={{
-                duration: 0.82,
-                times: [0, 0.42, 0.54, 1],
-                delay: index * 0.035 + 0.045,
+                duration: 1.15,
+                times: [0, 0.40, 0.58, 1],
+                delay: index * 0.055 + 0.065,
                 ease: TRANSITION_EASE,
               }}
               onAnimationComplete={
