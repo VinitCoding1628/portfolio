@@ -28,6 +28,7 @@ import {
 } from "@/data/data";
 import DecryptedText from "@/components/DecryptedText";
 import { useTheme } from "@/components/theme/ThemeContext";
+import { usePreload } from "@/context/PreloadContext";
 import { motion, AnimatePresence } from "motion/react";
 import FadeIn from "@/components/ui/FadeIn";
 import "../App.css";
@@ -142,14 +143,38 @@ const GRID_COLS = 8;
 const GRID_ROWS = 9;
 
 function PixelatedAvatar({ src, alt, className }) {
-  const [isAnimating, setIsAnimating] = useState(true);
+  const { isCompleted, hasAvatarAnimated, markAvatarAnimated } = usePreload();
+  const [animationState, setAnimationState] = useState(
+    hasAvatarAnimated ? "done" : "ready"
+  );
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimating(false);
-    }, 1800);
-    return () => clearTimeout(timer);
-  }, []);
+    if (hasAvatarAnimated) {
+      setAnimationState("done");
+      return;
+    }
+
+    if (isCompleted && animationState === "ready") {
+      // Trigger cube scattering once the preloader curtain starts unveiling the page
+      const startTimer = setTimeout(() => {
+        setAnimationState("animating");
+      }, 350);
+
+      return () => clearTimeout(startTimer);
+    }
+  }, [isCompleted, hasAvatarAnimated, animationState]);
+
+  useEffect(() => {
+    if (animationState === "animating") {
+      // Once cubes dissolve, mark as animated to avoid re-triggering on route changes
+      const finishTimer = setTimeout(() => {
+        setAnimationState("done");
+        markAvatarAnimated();
+      }, 2100);
+
+      return () => clearTimeout(finishTimer);
+    }
+  }, [animationState, markAvatarAnimated]);
 
   const pixels = useMemo(() => {
     const items = [];
@@ -180,8 +205,8 @@ function PixelatedAvatar({ src, alt, className }) {
         />
       </AnimatePresence>
 
-      {/* Small pixelated cubes animation (only on page load) */}
-      {isAnimating && (
+      {/* Small pixelated cubes animation (only triggered when preloader is completed) */}
+      {!hasAvatarAnimated && animationState !== "done" && (
         <div
           className="absolute inset-0 pointer-events-none z-20 p-0.5 gap-0.5"
           style={{
@@ -200,12 +225,21 @@ function PixelatedAvatar({ src, alt, className }) {
                 rotateX: 0,
                 rotateY: 0,
               }}
-              animate={{
-                opacity: 0,
-                scale: 0.05,
-                rotateX: item.rotateX,
-                rotateY: item.rotateY,
-              }}
+              animate={
+                animationState === "animating"
+                  ? {
+                      opacity: 0,
+                      scale: 0.05,
+                      rotateX: item.rotateX,
+                      rotateY: item.rotateY,
+                    }
+                  : {
+                      opacity: 1,
+                      scale: 1,
+                      rotateX: 0,
+                      rotateY: 0,
+                    }
+              }
               transition={{
                 duration: 0.75,
                 delay: item.delay,

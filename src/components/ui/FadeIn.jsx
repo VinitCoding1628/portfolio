@@ -9,8 +9,8 @@ export function FadeIn({
   y = 36,
   scale = 1,
   once = true,
-  amount = 0.2,
-  margin = "0px 0px -60px 0px",
+  amount = 0.05,
+  margin = "0px 0px -20px 0px",
   ease = "easeInOut",
   as = "div",
   ...props

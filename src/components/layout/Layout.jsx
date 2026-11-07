@@ -5,6 +5,7 @@ import TopBar from "./TopBar";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
 import Footer from "./Footer";
+import StairsTransition from "@/components/transition/StairsTransition";
 import { User, Zap, Mail, Menu, X, Download } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { navItems, socialLinks, personalInfo } from "@/data/data";
@@ -51,10 +52,7 @@ export default function Layout() {
   useEffect(() => {
     setIsMoreOpen(false);
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      scrollContainerRef.current.scrollTop = 0;
     }
   }, [location.pathname]);
 
@@ -215,6 +213,9 @@ export default function Layout() {
           <span className="text-[11px]">More options</span>
         </button>
       </nav>
+
+      {/* Stairs Page Transition Overlay (Theme-based, active on route change) */}
+      <StairsTransition />
 
       {/* 6. Middle Part: ONLY THIS CONTAINER SCROLLS AND CHANGES CONTENT */}
       <main

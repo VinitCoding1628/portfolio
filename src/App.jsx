@@ -5,10 +5,19 @@ import Home from "@/pages/Home";
 import Work from "@/pages/Work";
 import Contact from "@/pages/Contact";
 import { ThemeProvider } from "@/components/theme/ThemeContext";
+import { PreloadProvider, usePreload } from "@/context/PreloadContext";
+import Preloader from "@/components/layout/Preloader";
+import { AnimatePresence } from "motion/react";
 
-export default function App() {
+function MainContent() {
+  const { isLoading, finishLoading } = usePreload();
+
   return (
-    <ThemeProvider>
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && <Preloader onComplete={finishLoading} />}
+      </AnimatePresence>
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -20,6 +29,16 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <PreloadProvider>
+        <MainContent />
+      </PreloadProvider>
     </ThemeProvider>
   );
 }

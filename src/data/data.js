@@ -55,20 +55,24 @@ export const experiences = [
     period: "Apr, 2025 - July, 2026",
     logo: chistatsLogo,
     description: [
-      "Contributed as an Assistant Frontend Developer by integrating AI-powered financial chatbot with React and Tailwind CSS, enhancing real-time data loading and monitoring.",
-      "Designed and developed responsive UI components and best practice frameworks achieving 40% efficiency improvement.",
-      "Implemented real-time monitoring dashboards for data visualization and analysis using BoTools and Dashboard technology, facilitating quicker decision making.",
+      "Built and optimized responsive UI components for data analytics applications, improving UI performance and development efficiency by 40%.",
+      "Developed the Aquatech Dashboard using React.js and Bootstrap, integrating REST APIs for real-time monitoring, analytics, and interactive data visualization.",
+      "Built FinGeni, an AI-powered financial chatbot interface using React.js and Material Tailwind, integrating APIs to deliver real-time financial insights and recommendations.",
     ],
   },
   {
-    role: "Frontend Internship",
+    role: "Frontend Developer Intern",
     company: "ChiStats",
-    badge: "Tech Firm",
-    logo: chistatsLogo,
+    badge: "Internship",
     website: "chistats.ai",
     websiteUrl: "https://chistats.ai/",
-    period: "June, 2024 - March, 2025",
-    description: "Designed responsive interfaces and scalable design systems for global SaaS clients.",
+    period: "Jun, 2024 - Apr, 2025",
+    logo: chistatsLogo,
+    description: [
+      "Developed responsive web interfaces using React.js, JavaScript, HTML, CSS, and Tailwind CSS, building reusable components for dashboards and data-driven applications.",
+      "Developed frontend workflows for JurisAssist, an AI-driven legal document analysis platform, and built a Sentiment Analysis interface with ZIP uploads and real-time loading states.",
+      "Integrated REST APIs and implemented reusable component architecture, responsive design practices, and Git-based workflows to deliver maintainable and scalable interfaces.",
+    ],
   },
 ];
 
