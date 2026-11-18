@@ -8,12 +8,14 @@ import { ThemeProvider } from "@/components/theme/ThemeContext";
 import { PreloadProvider, usePreload } from "@/context/PreloadContext";
 import Preloader from "@/components/layout/Preloader";
 import { AnimatePresence } from "motion/react";
+import { Toaster } from "sonner";
 
 function MainContent() {
   const { isLoading, finishLoading } = usePreload();
 
   return (
     <>
+    <Toaster />
       <AnimatePresence mode="wait">
         {isLoading && <Preloader onComplete={finishLoading} />}
       </AnimatePresence>

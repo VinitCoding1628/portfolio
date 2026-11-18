@@ -1,23 +1,41 @@
 import React, { useState } from "react";
-import { Mail, MapPin, Send, CheckCircle2, Calendar } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle2, Calendar, Loader2 } from "lucide-react";
 import { contactInfo } from "@/data/data";
 import FadeIn from "@/components/ui/FadeIn";
+import emailjs from '@emailjs/browser'
+import { toast } from "sonner";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 4000);
+    setLoading(true);
+    try {
+      const result = await emailjs.send('service_m7idzor', 'template_jr1dxzu', formData, 'aeVQCC39WD8DvAZ5z')
+      if (result.status === 200) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({ name: "", email: "", message: "" });
+          setLoading(false);
+        }, 4000);
+        toast.success("Message sent successfully");
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Message failed to send");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+    
   };
 
   return (
@@ -96,6 +114,7 @@ export default function Contact() {
                 <label className="text-xs font-mono dark:text-zinc-400 text-zinc-600">YOUR NAME</label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={formData.name}
                   onChange={(e) =>
@@ -110,6 +129,7 @@ export default function Contact() {
                 <label className="text-xs font-mono dark:text-zinc-400 text-zinc-600">YOUR EMAIL</label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={formData.email}
                   onChange={(e) =>
@@ -125,6 +145,7 @@ export default function Contact() {
               <label className="text-xs font-mono dark:text-zinc-400 text-zinc-600">MESSAGE</label>
               <textarea
                 rows={4}
+                name="message"
                 required
                 value={formData.message}
                 onChange={(e) =>
@@ -137,10 +158,22 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl dark:bg-white dark:text-black bg-zinc-900 text-white font-semibold text-xs tracking-wider uppercase dark:hover:bg-zinc-200 hover:bg-zinc-800 transition-all active:scale-95 shadow-md"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl dark:bg-white dark:text-black bg-zinc-900 text-white font-semibold text-xs tracking-wider uppercase dark:hover:bg-zinc-200 hover:bg-zinc-800 transition-all active:scale-95 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
             >
-              <Send className="w-3.5 h-3.5" />
-              <span>Send Message</span>
+              {
+                loading ? (
+                  <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Send Message</span>
+                  </>
+                )
+              }
             </button>
           </form>
         )}
